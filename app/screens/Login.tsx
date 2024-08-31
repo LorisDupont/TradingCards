@@ -1,4 +1,4 @@
-import { View, TextInput, ActivityIndicator, Text, Button, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, ActivityIndicator, Text, Button, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -38,40 +38,48 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>TradingCards</Text>
-            <KeyboardAvoidingView behavior='padding'>
-                <View style={styles.inputContenaire}>
-                    <TextInput
-                        value={email}
-                        style={styles.input}
-                        placeholder='Adresse email'
-                        autoCapitalize='none'
-                        onChangeText={(text) => setEmail(text)}
-                    />
-                    <TextInput
-                        value={password}
-                        style={styles.input}
-                        placeholder='Mot de passe'
-                        autoCapitalize='none'
-                        onChangeText={(text) => setPassword(text)}
-                        secureTextEntry
-                    />
-                    { 
-                        loading 
-                        ? <ActivityIndicator size="large" color="#0000ff" />
-                        : (
-                        <View>
-                            <View style={styles.buttonContainer}>
-                                <Button title='Connexion' onPress={signIn} />
+            <View style={styles.animateBorder}>
+                <KeyboardAvoidingView behavior='padding'>
+                    <View style={styles.inputContenaire}>
+                        <TextInput
+                            value={email}
+                            style={styles.input}
+                            placeholder='Adresse email'
+                            placeholderTextColor="white"
+                            autoCapitalize='none'
+                            onChangeText={(text) => setEmail(text)}
+                        />
+                        <TextInput
+                            value={password}
+                            style={styles.input}
+                            placeholder='Mot de passe'
+                            placeholderTextColor="white"
+                            autoCapitalize='none'
+                            onChangeText={(text) => setPassword(text)}
+                            secureTextEntry
+                        />
+                        { 
+                            loading 
+                            ? <ActivityIndicator size="large" color="#0000ff" />
+                            : (
+                            <View>
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity onPress={signIn}>
+                                        <Text style={styles.button2}>Connexion</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <Text style={{color: 'white', textAlign:'center'}}>Ou</Text>
+                                <View style={styles.buttonContainer}>
+                                    <TouchableOpacity onPress={signUp}>
+                                        <Text style={styles.button}>Créer un compte</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            <View style={styles.buttonContainer}>
-                                <Button title='Créer un compte' onPress={signUp} />
-                            </View>
-
-                        </View>
-                        )
-                    }
-                </View>
-            </KeyboardAvoidingView>
+                            )
+                        }
+                    </View>
+                </KeyboardAvoidingView>
+            </View>
         </View>
     );
 }
@@ -85,27 +93,57 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#10002e'
     },
+    animateBorder: {
+        borderWidth: 6,
+        borderRadius: 10,
+        borderColor: 'purple',
+        marginHorizontal: 40,
+        backgroundColor: 'orange'
+      },
     inputContenaire: {
         borderWidth: 6,
         borderRadius: 10,
-        borderColor: 'red',
-        marginHorizontal: 50,
-        height: 'auto',
-        paddingVertical: 20
+        borderColor: "purple",
+        backgroundColor: '#10002e',
+        marginHorizontal: 8,
+        marginVertical: 8,
+        height: 350,
+        paddingVertical: 10,
     },
     input: {
-        marginVertical: 4,
+        marginVertical: 10,
         marginHorizontal: 10,
         height: 50,
         borderWidth: 1,
-        borderRadius: 4,
+        borderRadius: 100,
         padding: 10,
-        backgroundColor: '#fff'
+        backgroundColor: `rgba(255, 193, 27, 0.6)`,
+        
     },
     buttonContainer: {
         marginHorizontal: 10,
-        marginTop: 16, 
-        marginBottom: 8,
+        borderWidth: 1,
+        borderRadius: 1000,
+        marginTop: 18, 
+        marginBottom: 18,
+    },
+    button: {
+        color: "white",
+        backgroundColor: 'orange',
+        borderRadius: 100,
+        fontSize: 20,
+        paddingBottom: 6,
+        textAlign: 'center',
+
+    },
+    button2: {
+        color: "white",
+        backgroundColor: 'purple',
+        borderRadius: 100,
+        fontSize: 20,
+        paddingBottom: 6,
+        textAlign: 'center',
+
     },
     title: {
         color: "orange",
