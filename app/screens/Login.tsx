@@ -1,4 +1,4 @@
-import { View, TextInput, ActivityIndicator, Button, StyleSheet, KeyboardAvoidingView, Pressable } from 'react-native';
+import { View, TextInput, ActivityIndicator, Text, Button, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import React, { useState } from 'react';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -37,37 +37,40 @@ const Login = () => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>TradingCards</Text>
             <KeyboardAvoidingView behavior='padding'>
-                <TextInput
-                    value={email}
-                    style={styles.input}
-                    placeholder='Adresse email'
-                    autoCapitalize='none'
-                    onChangeText={(text) => setEmail(text)}
-                />
-                <TextInput
-                    value={password}
-                    style={styles.input}
-                    placeholder='Mot de passe'
-                    autoCapitalize='none'
-                    onChangeText={(text) => setPassword(text)}
-                    secureTextEntry
-                />
-                { 
-                    loading 
-                    ? <ActivityIndicator size="large" color="#0000ff" />
-                    : (
-                    <View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Connexion' onPress={signIn} />
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <Button title='Créer un compte' onPress={signUp} />
-                        </View>
+                <View style={styles.inputContenaire}>
+                    <TextInput
+                        value={email}
+                        style={styles.input}
+                        placeholder='Adresse email'
+                        autoCapitalize='none'
+                        onChangeText={(text) => setEmail(text)}
+                    />
+                    <TextInput
+                        value={password}
+                        style={styles.input}
+                        placeholder='Mot de passe'
+                        autoCapitalize='none'
+                        onChangeText={(text) => setPassword(text)}
+                        secureTextEntry
+                    />
+                    { 
+                        loading 
+                        ? <ActivityIndicator size="large" color="#0000ff" />
+                        : (
+                        <View>
+                            <View style={styles.buttonContainer}>
+                                <Button title='Connexion' onPress={signIn} />
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <Button title='Créer un compte' onPress={signUp} />
+                            </View>
 
-                    </View>
-                    )
-                }
+                        </View>
+                        )
+                    }
+                </View>
             </KeyboardAvoidingView>
         </View>
     );
@@ -77,12 +80,22 @@ export default Login;
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 20,
+        marginHorizontal: 0,
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#10002e'
+    },
+    inputContenaire: {
+        borderWidth: 6,
+        borderRadius: 10,
+        borderColor: 'red',
+        marginHorizontal: 50,
+        height: 'auto',
+        paddingVertical: 20
     },
     input: {
         marginVertical: 4,
+        marginHorizontal: 10,
         height: 50,
         borderWidth: 1,
         borderRadius: 4,
@@ -90,7 +103,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     buttonContainer: {
+        marginHorizontal: 10,
         marginTop: 16, 
         marginBottom: 8,
+    },
+    title: {
+        color: "orange",
+        fontSize: 50,
+        fontWeight: "bold",
+        textShadowOffset: {width: 5, height: 4},
+        textShadowColor: 'purple',
+        textShadowRadius:2,
+        textAlign: 'center',
+        paddingVertical: 60,
     }
 });
