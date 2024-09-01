@@ -44,7 +44,7 @@ const Login = ({ navigation }: RouterProps) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>TradingCards</Text>
+            <Text style={styles.title}>TradingCardsSSq</Text>
             <View style={styles.animateBorder}>
                 <KeyboardAvoidingView behavior='padding'>
                     <View style={styles.inputContenaire}>
