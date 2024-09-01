@@ -3,16 +3,15 @@ import React, { useState } from 'react';
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { NavigationProp } from '@react-navigation/native';
-import Register from './Register';
 
 interface RouterProps {
     navigation: NavigationProp<any, any>;
 }
 
-
-const Login = ({ navigation }: RouterProps) => {
+const Register = ({ navigation }: RouterProps) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [loading, setLoading] = useState(false);
     const auth = FIREBASE_AUTH;
 
@@ -57,6 +56,14 @@ const Login = ({ navigation }: RouterProps) => {
                             onChangeText={(text) => setEmail(text)}
                         />
                         <TextInput
+                            value={displayName}
+                            style={styles.input}
+                            placeholder="Nom d'utilisatssseur"
+                            placeholderTextColor="white"
+                            autoCapitalize='none'
+                            onChangeText={(text) => setDisplayName(text)}
+                        />
+                        <TextInput
                             value={password}
                             style={styles.input}
                             placeholder='Mot de passe'
@@ -72,13 +79,13 @@ const Login = ({ navigation }: RouterProps) => {
                             <View>
                                 <View style={styles.buttonContainer}>
                                     <TouchableOpacity onPress={signIn}>
-                                        <Text style={styles.button2}>Connexion</Text>
+                                        <Text style={styles.button2}>S'inscrire</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <Text style={{color: 'white', textAlign:'center'}}>Ou</Text>
                                 <View style={styles.buttonContainer}>
-                                    <TouchableOpacity onPress={() => navigation.navigate('inscription')}>
-                                        <Text style={styles.button}>Créer un compte</Text>
+                                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                                        <Text style={styles.button}>Connexion</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -91,7 +98,7 @@ const Login = ({ navigation }: RouterProps) => {
     );
 }
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
     container: {
@@ -105,7 +112,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: 'purple',
         marginHorizontal: 40,
-        backgroundColor: 'orange'
+        backgroundColor: 'orange',
       },
     inputContenaire: {
         borderWidth: 6,
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#10002e',
         marginHorizontal: 8,
         marginVertical: 8,
-        height: 350,
+        minHeight: 350,
         paddingVertical: 10,
     },
     input: {
@@ -133,6 +140,7 @@ const styles = StyleSheet.create({
         borderRadius: 1000,
         marginTop: 18, 
         marginBottom: 18,
+        height:'auto'
     },
     button: {
         color: "white",

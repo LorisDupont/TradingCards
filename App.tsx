@@ -1,11 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './app/screens/Login';
-import List from './app/screens/List';
+import List from './app/screens/Register';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import Details from './app/screens/Details';
+import Register from './app/screens/Register';
 
 
 const Stack = createNativeStackNavigator();
@@ -15,7 +16,7 @@ const InsideStack = createNativeStackNavigator();
 function InsideLayout () {
   return (
     <InsideStack.Navigator>
-      <InsideStack.Screen name='Liste de cartes' component={List} />
+      <InsideStack.Screen name='inscription' component={Register} />
       <InsideStack.Screen name='La carte' component={Details} />
     </InsideStack.Navigator>
   )
@@ -40,13 +41,17 @@ export default function App() {
             component={InsideLayout}
             options={{ headerShown: false }} />
         ) : (
+          <>
           <Stack.Screen
-            name='Login'  
-            component={Login} 
-            options={{ headerShown: false}} 
-          />
+              name='Login'
+              component={Login}
+              options={{ headerShown: false }} />
+              <Stack.Screen name='inscription' component={Register}
+                options={{ headerShown: false }} />
+              </>
+
         )}
-      </Stack.Navigator>       
+      </Stack.Navigator>      
     </NavigationContainer>
   );
 }
